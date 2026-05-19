@@ -7,9 +7,20 @@
     <script src="book.js" defer></script>
   </head>
   <body>
-    <button type="button" popovertarget="my-dialog">New book</button>
+    <button type="button" popovertarget="my-dialog">New Book</button>
     <dialog id="my-dialog" popover>
-      <form action="" method="dialog"></form>
+      <form method="dialog">
+        <h2>Add New Book</h2>
+        <label for="title">Title</label>
+        <input type="text" name="book-title" id="title" reaquired />
+        <label for="author">Author</label>
+        <input type="text" name="book-author" id="author" reaquired />
+        <label for="book-pages">Number of pages</label>
+        <input type="number" name="number-of-pages" id="book-pages" reaquired />
+        <label for="read">Read ?</label>
+        <input type="checkbox" name="have-read" id="read" reaquired />
+        <input type="submit" value="Save" />
+      </form>
     </dialog>
   </body>
 </html>
