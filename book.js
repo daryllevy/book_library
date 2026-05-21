@@ -39,7 +39,7 @@ btnSubmit.addEventListener("click", (e) => {
   } else {
     bookTitle = title.value;
     bookAuthor = author.value;
-    bookNberOfPg = nberOfPg.value;
+    bookNberOfPg = +nberOfPg.value;
     isBookRead = isCheckboxChecked;
 
     addBookToLibrary(bookTitle, bookAuthor, bookNberOfPg, isBookRead);
@@ -58,6 +58,15 @@ card.addEventListener("click", (e) => {
   }
 
   // Si le clic c'est sur le bouton "read"
+  if (target.hasAttribute("data-btn-readid")) {
+    // Si myLibrary contient le bouton avec dataset.btnReadid
+    const found = myLibrary.find(
+      (element) => element.id === target.dataset.btnReadid,
+    );
+
+    found.toggle();
+    displayBook(myLibrary);
+  }
 });
 
 // Evènement qui vérifie l'état du bouton read
@@ -79,7 +88,6 @@ function deleteBook(array, element) {
 function addBookToLibrary(title, author, nberOfPg, haveRead) {
   const book = new Book(title, author, nberOfPg, haveRead);
   myLibrary.push(book);
-  console.log(book);
 }
 
 // Fonction pour afficher chaque livre dans une card
@@ -111,11 +119,10 @@ function displayBook(array) {
 
 //Fonction qui récupère la valeur du bouton read
 function getBtnReadValue(e) {
-  if (e.currentTarget.checked) {
-    return (isCheckboxChecked = true);
-  } else {
-    return (isCheckboxChecked = false);
-  }
+  isCheckboxChecked = e.currentTarget.checked; // Ca prend la valeur de lachecked true lorsque c'est coché, false lorsque c'est pas coché
 }
 
-console.log(myLibrary);
+// Fonction pour toggle le statut de lecture du livre
+Book.prototype.toggle = function () {
+  this.haveRead = !this.haveRead;
+};
