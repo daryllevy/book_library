@@ -1,7 +1,14 @@
 "use strict";
+// Mes variables
+let myLibrary = [];
+const btnSubmit = document.querySelector("#submit");
+const title = document.querySelector("#title");
+const author = document.querySelector("#author");
+const nberOfPg = document.querySelector("#book-pages");
+const btnRead = document.querySelector("#read");
+const card = document.querySelector("#card");
 
-const myLibrary = [];
-
+//Le constructeur des livres
 function Book(title, author, numberOfPages, haveRead) {
   if (!new.target) {
     throw Error("You must use the 'new' operator to call the constructor");
@@ -14,6 +21,7 @@ function Book(title, author, numberOfPages, haveRead) {
   this.id = crypto.randomUUID(); // permet d'avoir un identifiant unique
 }
 
+// La fonction qui donne des infos sur les livres
 Book.prototype.infos = function () {
   if (this.haveRead === "yes") {
     console.log(
@@ -26,24 +34,26 @@ Book.prototype.infos = function () {
   }
 };
 
-// prompt pour avoir les valeurs des livres$
-let title = prompt("What's the title of the book ?");
-let author = prompt("Who wrote it ?");
-let nberOfPg = +prompt("How many pages does it have ?");
-let haveRead = prompt("Have you read it ? (type 'yes' or 'no')");
+//Evènement qui ajoute des livres
+btnSubmit.addEventListener("click", (e) => {
+  let bookTitle;
+  let bookAuthor;
+  let bookNberOfPg;
+  let isBookRead;
 
-// Gère le cas où il n' y a pas de réponse
-if (haveRead === null) {
-  alert("Vous n'avez pas donné de réponse");
-}
+  if (title.value === "" || author.value === "" || nberOfPg.value === "") {
+    console.log("Veuillez remplir tous les champs obligatoires");
+    e.preventDefault();
+  } else {
+    bookTitle = title.value;
+    bookAuthor = author.value;
+    bookNberOfPg = nberOfPg.value;
+    isBookRead = true; // pour effectuer des tests pour le moment
 
-// Gère les espaces et rend tout en minuscule
-haveRead = haveRead.trim().toLowerCase();
-if (haveRead === "yes") {
-  haveRead = true;
-} else {
-  haveRead = false;
-}
+    addBookToLibrary(bookTitle, bookAuthor, bookNberOfPg, isBookRead);
+    displayBook(myLibrary);
+  }
+});
 
 // Fonction qui créée un livre et le sauvegarde
 function addBookToLibrary(title, author, nberOfPg, haveRead) {
@@ -54,27 +64,42 @@ function addBookToLibrary(title, author, nberOfPg, haveRead) {
 
 // Fonction pour afficher chaque livre dans une card
 function displayBook(array) {
-  for (let i = 0; i < array.length; i++) {
-    // J'initialise les élément html qui ferons la card
+  card.textContent = "";
+
+  array.forEach((arr) => {
     const div = document.createElement("div");
-    const bookNumber = document.createElement("h2");
     const title = document.createElement("h2");
     const author = document.createElement("p");
     const nberOfPg = document.createElement("p");
     const haveRead = document.createElement("p");
+    const btnDelete = document.createElement("button");
 
-    bookNumber.textContent = `Book number ${i}`;
-    title.textContent = `Title : ${array[i].title}`;
-    author.textContent = `Author : ${array[i].author}`;
-    nberOfPg.textContent = `Number of pages : ${array[i].numberOfPages}`;
-    haveRead.textContent = `Read? : ${array[i].haveRead}`;
+    title.textContent = `Title : ${arr.title}`;
+    author.textContent = `Author : ${arr.author}`;
+    nberOfPg.textContent = `Number of pages : ${arr.numberOfPages}`;
+    haveRead.textContent = `Read? : ${arr.haveRead}`;
+    btnDelete.dataset.id = `${arr.id}`;
+    btnDelete.textContent = "Delete";
 
-    div.append(title, author, nberOfPg, haveRead);
-    document.body.append(bookNumber, div);
-  }
+    div.append(title, author, nberOfPg, haveRead, btnDelete);
+    card.appendChild(div);
+  });
 }
 
-addBookToLibrary(title, author, nberOfPg, haveRead);
-addBookToLibrary("good moring", "Gayle King", 321, true);
-displayBook(myLibrary);
+//Evènement pour supprimmer un livre de la bibliothèque
+card.addEventListener("click", (e) => {
+  let target = e.target;
+  if (target.hasAttribute("data-id")) {
+    myLibrary = deleteBook(myLibrary, target);
+    displayBook(myLibrary);
+  }
+});
+
+// Fonction pour supprimmer un livre
+function deleteBook(array, element) {
+  //1. je créé une copie de l'array
+  let arrCop = array.filter((arr) => arr.id !== element.dataset.id);
+  return arrCop;
+}
+
 console.log(myLibrary);
