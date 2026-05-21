@@ -1,4 +1,5 @@
 "use strict";
+
 // Mes variables
 let myLibrary = [];
 const btnSubmit = document.querySelector("#submit");
@@ -7,6 +8,7 @@ const author = document.querySelector("#author");
 const nberOfPg = document.querySelector("#book-pages");
 const btnRead = document.querySelector("#read");
 const card = document.querySelector("#card");
+let isCheckboxChecked = false;
 
 //Le constructeur des livres
 function Book(title, author, numberOfPages, haveRead) {
@@ -21,18 +23,8 @@ function Book(title, author, numberOfPages, haveRead) {
   this.id = crypto.randomUUID(); // permet d'avoir un identifiant unique
 }
 
-// La fonction qui donne des infos sur les livres
-Book.prototype.infos = function () {
-  if (this.haveRead === "yes") {
-    console.log(
-      `${this.title} by ${this.author}, ${this.numberOfPages} pages, already read it`,
-    );
-  } else {
-    console.log(
-      `${this.title} by ${this.author}, ${this.numberOfPages} pages, not read yet`,
-    );
-  }
-};
+// MES EVENEMENTS //
+// *** //
 
 //Evènement qui ajoute des livres
 btnSubmit.addEventListener("click", (e) => {
@@ -48,12 +40,40 @@ btnSubmit.addEventListener("click", (e) => {
     bookTitle = title.value;
     bookAuthor = author.value;
     bookNberOfPg = nberOfPg.value;
-    isBookRead = true; // pour effectuer des tests pour le moment
+    isBookRead = isCheckboxChecked;
 
     addBookToLibrary(bookTitle, bookAuthor, bookNberOfPg, isBookRead);
     displayBook(myLibrary);
   }
 });
+
+//Evènement pour supprimmer un livre de la bibliothèque
+card.addEventListener("click", (e) => {
+  let target = e.target;
+
+  // Si le clic c'est sur le bouton delete
+  if (target.hasAttribute("data-btn-deleteid")) {
+    myLibrary = deleteBook(myLibrary, target);
+    displayBook(myLibrary);
+  }
+
+  // Si le clic c'est sur le bouton "read"
+});
+
+// Evènement qui vérifie l'état du bouton read
+btnRead.addEventListener("change", getBtnReadValue);
+
+// *** //
+
+// MES FONCTIONS //
+// *******//
+
+// Fonction pour supprimmer un livre
+function deleteBook(array, element) {
+  //1. je créé une copie de l'array
+  let arrCop = array.filter((arr) => arr.id !== element.dataset.btnDeleteid);
+  return arrCop;
+}
 
 // Fonction qui créée un livre et le sauvegarde
 function addBookToLibrary(title, author, nberOfPg, haveRead) {
@@ -71,14 +91,17 @@ function displayBook(array) {
     const title = document.createElement("h2");
     const author = document.createElement("p");
     const nberOfPg = document.createElement("p");
-    const haveRead = document.createElement("p");
+    const haveRead = document.createElement("button");
     const btnDelete = document.createElement("button");
 
     title.textContent = `Title : ${arr.title}`;
     author.textContent = `Author : ${arr.author}`;
     nberOfPg.textContent = `Number of pages : ${arr.numberOfPages}`;
-    haveRead.textContent = `Read? : ${arr.haveRead}`;
-    btnDelete.dataset.id = `${arr.id}`;
+    arr.haveRead === true
+      ? (haveRead.textContent = "READ")
+      : (haveRead.textContent = "NOT READ YET");
+    haveRead.dataset.btnReadid = arr.id; // Ca lie le bouton read à l'id du livre
+    btnDelete.dataset.btnDeleteid = arr.id; // Ca lie bouton delete à l'id du bouton
     btnDelete.textContent = "Delete";
 
     div.append(title, author, nberOfPg, haveRead, btnDelete);
@@ -86,20 +109,13 @@ function displayBook(array) {
   });
 }
 
-//Evènement pour supprimmer un livre de la bibliothèque
-card.addEventListener("click", (e) => {
-  let target = e.target;
-  if (target.hasAttribute("data-id")) {
-    myLibrary = deleteBook(myLibrary, target);
-    displayBook(myLibrary);
+//Fonction qui récupère la valeur du bouton read
+function getBtnReadValue(e) {
+  if (e.currentTarget.checked) {
+    return (isCheckboxChecked = true);
+  } else {
+    return (isCheckboxChecked = false);
   }
-});
-
-// Fonction pour supprimmer un livre
-function deleteBook(array, element) {
-  //1. je créé une copie de l'array
-  let arrCop = array.filter((arr) => arr.id !== element.dataset.id);
-  return arrCop;
 }
 
 console.log(myLibrary);
