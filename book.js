@@ -2,6 +2,7 @@
 
 // Mes variables
 let myLibrary = [];
+const form = document.querySelector("#form");
 const btnSubmit = document.querySelector("#submit");
 const title = document.querySelector("#title");
 const author = document.querySelector("#author");
@@ -44,6 +45,7 @@ btnSubmit.addEventListener("click", (e) => {
 
     addBookToLibrary(bookTitle, bookAuthor, bookNberOfPg, isBookRead);
     displayBook(myLibrary);
+    form.reset(); // Ca permet de renitialiser les champs du formulaire
   }
 });
 
