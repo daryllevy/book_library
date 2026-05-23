@@ -2,6 +2,8 @@
 
 // Mes variables
 let myLibrary = [];
+const table = document.querySelector("#tableBook");
+const tableBody = document.querySelector("#table-body");
 const form = document.querySelector("#form");
 const btnSubmit = document.querySelector("#submit");
 const title = document.querySelector("#title");
@@ -41,7 +43,11 @@ btnSubmit.addEventListener("click", (e) => {
     bookTitle = title.value;
     bookAuthor = author.value;
     bookNberOfPg = +nberOfPg.value;
-    isBookRead = isCheckboxChecked;
+    if (isCheckboxChecked) {
+      isBookRead = "READ";
+    } else {
+      isBookRead = "NOT READ";
+    }
 
     addBookToLibrary(bookTitle, bookAuthor, bookNberOfPg, isBookRead);
     displayBook(myLibrary);
@@ -50,7 +56,7 @@ btnSubmit.addEventListener("click", (e) => {
 });
 
 //Evènement pour supprimmer un livre de la bibliothèque
-card.addEventListener("click", (e) => {
+table.addEventListener("click", (e) => {
   let target = e.target;
 
   // Si le clic c'est sur le bouton delete
@@ -94,28 +100,19 @@ function addBookToLibrary(title, author, nberOfPg, haveRead) {
 
 // Fonction pour afficher chaque livre dans une card
 function displayBook(array) {
-  card.textContent = "";
+  tableBody.innerHTML = "";
 
   array.forEach((arr) => {
-    const div = document.createElement("div");
-    const title = document.createElement("h2");
-    const author = document.createElement("p");
-    const nberOfPg = document.createElement("p");
-    const haveRead = document.createElement("button");
-    const btnDelete = document.createElement("button");
+    const htmlBook = `
+    <tr>
+      <td>${arr.title}</td>
+      <td>${arr.author}</td>
+      <td>${arr.numberOfPages}</td>
+      <td><button class ="book-status" data-btn-readid ="${arr.id}">${arr.haveRead}</button></td>
+      <td><button class ="btn-delete" data-btn-deleteid ="${arr.id}">DELETE</button></td>
+    `;
 
-    title.textContent = `Title : ${arr.title}`;
-    author.textContent = `Author : ${arr.author}`;
-    nberOfPg.textContent = `Number of pages : ${arr.numberOfPages}`;
-    arr.haveRead === true
-      ? (haveRead.textContent = "READ")
-      : (haveRead.textContent = "NOT READ YET");
-    haveRead.dataset.btnReadid = arr.id; // Ca lie le bouton read à l'id du livre
-    btnDelete.dataset.btnDeleteid = arr.id; // Ca lie bouton delete à l'id du bouton
-    btnDelete.textContent = "Delete";
-
-    div.append(title, author, nberOfPg, haveRead, btnDelete);
-    card.appendChild(div);
+    tableBody.insertAdjacentHTML("afterbegin", htmlBook);
   });
 }
 
@@ -126,5 +123,7 @@ function getBtnReadValue(e) {
 
 // Fonction pour toggle le statut de lecture du livre
 Book.prototype.toggle = function () {
-  this.haveRead = !this.haveRead;
+  this.haveRead === "READ"
+    ? (this.haveRead = "NOT READ")
+    : (this.haveRead = "READ");
 };
