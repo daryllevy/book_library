@@ -184,9 +184,83 @@ td {
 #table-book .book-status {
   background-color: var(--white-color);
   border: solid 1px var(--main-p-color);
+  font-weight: 800;
 }
 
 #table-book .btn-delete {
   background-color: var(--red-color);
   color: var(--white-color);
+  font-weight: 800;
+}
+
+/* DIALOG */
+#my-dialog {
+  width: 60%;
+  padding: 16px 18px;
+  position: relative;
+}
+
+#form h2 {
+  text-align: center;
+}
+
+#form input[data-select],
+button {
+  display: block;
+}
+
+#form input[data-select] {
+  width: 95%;
+}
+
+#form input {
+  margin-bottom: 18px;
+  border: solid 2px var(--main-p-color);
+}
+
+#form button {
+  background-color: var(--green-color);
+  color: var(--main-p-color);
+  font-weight: 800;
+  margin: 18px 0 12px;
+}
+
+#form div {
+  display: flex;
+  justify-content: flex-end;
+}
+
+input[type="checkbox"] {
+  width: 2rem;
+  height: 2rem;
+  position: absolute;
+  left: 7rem;
+  bottom: 5.4rem;
+  opacity: 0;
+}
+
+.checkmark {
+  width: 2.2rem;
+  height: 2.2rem;
+  position: absolute;
+  left: 7rem;
+  bottom: 6.5rem;
+  border: solid 1px var(--main-p-color);
+}
+
+.checkbox input[type="checkbox"]:hover ~ .checkmark {
+  cursor: pointer;
+}
+
+.checkmark::after {
+  content: "✅";
+  position: absolute;
+  left: 1px;
+  bottom: -2px;
+  display: none;
+}
+
+.checkbox input[type="checkbox"]:checked ~ .checkmark::after {
+  background-color: none;
+  display: block;
 }
