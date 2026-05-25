@@ -2,6 +2,7 @@
 
 // Mes variables
 let myLibrary = [];
+const dialog = document.querySelector("#my-dialog");
 const table = document.querySelector("#table-book");
 const tableBody = document.querySelector("#table-body");
 const form = document.querySelector("#form");
