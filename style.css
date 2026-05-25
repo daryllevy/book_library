@@ -46,6 +46,28 @@ h2 {
   --green-color: #abd1c6;
 }
 
+/* Importation des fonts */
+@font-face {
+  font-family: "Playfair Display";
+  src:
+    url("assets/PlayfairDisplay/PlayfairDisplay-Regular.woff2") format("woff2"),
+    url("assets/PlayfairDisplay/PlayfairDisplay-Regular.woff") format("woff");
+  font-weight: normal;
+  font-style: normal;
+  font-display: swap;
+}
+
+@font-face {
+  font-family: "DM Sans";
+  src:
+    url("assets/DM_Sans/DMSans-9ptItalic.woff2") format("woff2"),
+    url("assets/DM_Sans/DMSans-9ptItalic.woff") format("woff");
+  font-weight: normal;
+  font-style: italic;
+  font-display: swap;
+}
+
+/* STYLES GENERAUX */
 button {
   padding: 8px 16px;
   border-radius: 10px;
@@ -56,10 +78,20 @@ button:hover {
   cursor: pointer;
 }
 
+body {
+  font-family: "DM Sans", system-ui, sans-serif;
+}
+
 /* HEADER */
 .header {
   background-color: var(--main-p-color);
   padding: 18px 24px;
+}
+
+h1,
+h2,
+th {
+  font-family: "Playfair Display", system-ui, serif;
 }
 
 .header h1 {
