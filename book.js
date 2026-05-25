@@ -118,8 +118,8 @@ function displayBook(array) {
       <td>${arr.title}</td>
       <td>${arr.author}</td>
       <td>${arr.numberOfPages}</td>
-      <td>${arr.score}</td>
       <td><button class ="book-status" data-btn-readid ="${arr.id}">${arr.haveRead}</button></td>
+      <td>${arr.score}</td>
       <td><button class ="btn-delete" data-btn-deleteid ="${arr.id}">DELETE</button></td>
     `;
 
