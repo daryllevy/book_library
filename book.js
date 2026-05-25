@@ -138,3 +138,10 @@ Book.prototype.toggle = function () {
     ? (this.haveRead = "NOT READ")
     : (this.haveRead = "READ");
 };
+
+// Injecte mon svg dans mon html
+fetch("images/illustration.svg")
+  .then((response) => response.text())
+  .then((svgContent) => {
+    document.querySelector(".illustration").innerHTML = svgContent;
+  });
