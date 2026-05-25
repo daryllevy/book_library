@@ -4,44 +4,60 @@
     <meta charset="UTF-8" />
     <meta name="viewport" content="width=device-width, initial-scale=1.0" />
     <title>Book Page</title>
+    <link rel="stylesheet" href="style.css" />
     <script src="book.js" defer></script>
   </head>
   <body>
-    <button type="button" popovertarget="my-dialog" id="new">New Book</button>
-
-    <table id="tableBook">
-      <thead>
-        <tr>
-          <th scope="col">Title</th>
-          <th scope="col">Author</th>
-          <th scope="col">Chapter progress</th>
-          <th scope="col">Status</th>
-          <th scope="col"></th>
-        </tr>
-      </thead>
-      <tbody id="table-body"></tbody>
-    </table>
-
-    <dialog id="my-dialog" popover>
-      <form method="dialog" id="form">
-        <h2>Add New Book</h2>
-        <label for="title">Title</label>
-        <input type="text" name="book-title" id="title" required />
-        <label for="author">Author</label>
-        <input type="text" name="book-author" id="author" required />
-        <label for="book-pages">Number of pages</label>
-        <input type="number" name="number-of-pages" id="book-pages" required />
-        <label for="read">Read ?</label>
-        <input type="checkbox" name="have-read" id="read" />
-        <button
-          popovertarget="my-dialog"
-          type="button"
-          id="submit"
-          popovertargetaction="hide"
-        >
-          Save
-        </button>
-      </form>
-    </dialog>
+    <div class="header">
+      <h1>My e-Library</h1>
+      <p>
+        Ma bibliothèque personalisée dans laquelle je laisse une trace des
+        livres que j'ai lu
+      </p>
+      <button type="button" popovertarget="my-dialog" id="new">New Book</button>
+    </div>
+    <div class="container">
+      <table id="tableBook">
+        <thead>
+          <tr>
+            <th scope="col">Title</th>
+            <th scope="col">Author</th>
+            <th scope="col">Chapter progress</th>
+            <th scope="col">Status</th>
+            <th scope="col">Score</th>
+            <th scope="col"></th>
+          </tr>
+        </thead>
+        <tbody id="table-body"></tbody>
+      </table>
+      <dialog id="my-dialog" popover>
+        <form method="dialog" id="form">
+          <h2>Add New Book</h2>
+          <label for="title">Title</label>
+          <input type="text" name="book-title" id="title" required />
+          <label for="author">Author</label>
+          <input type="text" name="book-author" id="author" required />
+          <label for="book-pages">Number of pages</label>
+          <input
+            type="number"
+            name="number-of-pages"
+            id="book-pages"
+            required
+          />
+          <label for="score">Score</label>
+          <input type="number" name="book-score" id="score" />
+          <label for="read">Status</label>
+          <input type="checkbox" name="have-read" id="read" />
+          <button
+            popovertarget="my-dialog"
+            type="button"
+            id="submit"
+            popovertargetaction="hide"
+          >
+            Save
+          </button>
+        </form>
+      </dialog>
+    </div>
   </body>
 </html>
