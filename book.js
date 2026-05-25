@@ -10,11 +10,12 @@ const title = document.querySelector("#title");
 const author = document.querySelector("#author");
 const nberOfPg = document.querySelector("#book-pages");
 const btnRead = document.querySelector("#read");
+const btnScore = document.querySelector("#score");
 const card = document.querySelector("#card");
 let isCheckboxChecked = false;
 
 //Le constructeur des livres
-function Book(title, author, numberOfPages, haveRead) {
+function Book(title, author, numberOfPages, score, haveRead) {
   if (!new.target) {
     throw Error("You must use the 'new' operator to call the constructor");
   }
@@ -22,6 +23,7 @@ function Book(title, author, numberOfPages, haveRead) {
   this.title = title;
   this.author = author;
   this.numberOfPages = numberOfPages;
+  this.score = score;
   this.haveRead = haveRead;
   this.id = crypto.randomUUID(); // permet d'avoir un identifiant unique
 }
@@ -34,10 +36,11 @@ btnSubmit.addEventListener("click", (e) => {
   let bookTitle;
   let bookAuthor;
   let bookNberOfPg;
+  let bookScore;
   let isBookRead;
 
   if (title.value === "" || author.value === "" || nberOfPg.value === "") {
-    console.log("Veuillez remplir tous les champs obligatoires");
+    alert("Veuillez remplir tous les champs obligatoires");
     e.preventDefault();
   } else {
     bookTitle = title.value;
@@ -48,8 +51,15 @@ btnSubmit.addEventListener("click", (e) => {
     } else {
       isBookRead = "NOT READ";
     }
+    bookScore = +btnScore.value;
 
-    addBookToLibrary(bookTitle, bookAuthor, bookNberOfPg, isBookRead);
+    addBookToLibrary(
+      bookTitle,
+      bookAuthor,
+      bookNberOfPg,
+      bookScore,
+      isBookRead,
+    );
     displayBook(myLibrary);
     form.reset(); // Ca permet de renitialiser les champs du formulaire
   }
@@ -93,8 +103,8 @@ function deleteBook(array, element) {
 }
 
 // Fonction qui créée un livre et le sauvegarde
-function addBookToLibrary(title, author, nberOfPg, haveRead) {
-  const book = new Book(title, author, nberOfPg, haveRead);
+function addBookToLibrary(title, author, nberOfPg, bookScore, haveRead) {
+  const book = new Book(title, author, nberOfPg, bookScore, haveRead);
   myLibrary.push(book);
 }
 
@@ -108,6 +118,7 @@ function displayBook(array) {
       <td>${arr.title}</td>
       <td>${arr.author}</td>
       <td>${arr.numberOfPages}</td>
+      <td>${arr.score}</td>
       <td><button class ="book-status" data-btn-readid ="${arr.id}">${arr.haveRead}</button></td>
       <td><button class ="btn-delete" data-btn-deleteid ="${arr.id}">DELETE</button></td>
     `;
