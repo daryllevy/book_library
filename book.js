@@ -2,7 +2,7 @@
 
 // Mes variables
 let myLibrary = [];
-const table = document.querySelector("#tableBook");
+const table = document.querySelector("#table-book");
 const tableBody = document.querySelector("#table-body");
 const form = document.querySelector("#form");
 const btnSubmit = document.querySelector("#submit");
