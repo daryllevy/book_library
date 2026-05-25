@@ -7,6 +7,7 @@ const table = document.querySelector("#table-book");
 const tableBody = document.querySelector("#table-body");
 const form = document.querySelector("#form");
 const btnSubmit = document.querySelector("#submit");
+const btnClose = document.querySelector(".close");
 const title = document.querySelector("#title");
 const author = document.querySelector("#author");
 const nberOfPg = document.querySelector("#book-pages");
@@ -64,6 +65,11 @@ btnSubmit.addEventListener("click", (e) => {
     displayBook(myLibrary);
     form.reset(); // Ca permet de renitialiser les champs du formulaire
   }
+});
+
+// Evènement qui fermer et reset le dialog
+btnClose.addEventListener("click", () => {
+  form.reset();
 });
 
 //Evènement pour supprimmer un livre de la bibliothèque
