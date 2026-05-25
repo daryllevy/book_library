@@ -61,15 +61,16 @@
           <input type="text" name="book-title" id="title" required />
           <label for="author">Author</label>
           <input type="text" name="book-author" id="author" required />
-          <label for="book-pages">Number of pages</label>
+          <label for="book-pages">Chapter progress</label>
           <input
             type="number"
             name="number-of-pages"
             id="book-pages"
+            min="0"
             required
           />
           <label for="score">Score</label>
-          <input type="number" name="book-score" id="score" />
+          <input type="number" name="book-score" id="score" min="0" max="100" />
           <label for="read">Status</label>
           <input type="checkbox" name="have-read" id="read" />
           <button
