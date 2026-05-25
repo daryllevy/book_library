@@ -1,0 +1,46 @@
+/* Josh Comeau's CSS RESET */
+*,
+*::before,
+*::after {
+  box-sizing: border-box;
+}
+
+/* Retire les margin par défaut, sauf pour dialog (qui centre le dialog sur le viewport)  */
+*:not(dialog) {
+  margin: 0;
+}
+
+body {
+  line-height: 1.5;
+  -webkit-font-smoothing: antaliased;
+}
+
+img,
+svg {
+  display: block;
+  width: 100%;
+}
+
+input,
+button,
+select,
+textarea {
+  font: inherit;
+}
+
+p,
+h1,
+h2 {
+  overflow-wrap: break-word;
+  hyphens: auto;
+  text-wrap: pretty;
+}
+
+/* MES VARAIBLES */
+:root {
+  --white-color: #fffffe;
+  --main-p-color: #232946;
+  --second-p-color: #b8c1ec;
+  --red-color: #e16162;
+  --green-color: #abd1c6;
+}
