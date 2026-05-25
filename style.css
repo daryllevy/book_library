@@ -87,6 +87,7 @@ button:hover {
   display: flex;
   align-items: center;
   justify-content: space-between;
+  margin-left: 4.8rem;
 }
 
 .header-explanation h2 {
@@ -117,7 +118,43 @@ button:hover {
   background-color: var(--green-color);
   color: var(--main-p-color);
   font-weight: 800;
-  margin-right: 12px;
+  margin-left: 4.8rem;
 }
 
 /* TABLE */
+.container {
+  margin-top: 28px;
+  padding: 12px 18px;
+  background-color: var(--white-color);
+}
+
+#table-book {
+  width: 90%;
+  margin: 0 auto;
+}
+
+#table-book thead tr {
+  color: var(--main-p-color);
+}
+
+#table-body tr {
+  color: var(--main-p-color);
+  font-size: 1.13rem;
+}
+
+th,
+td {
+  padding: 12px 18px;
+  text-align: center;
+  border-bottom: solid 1px var(--second-p-color);
+}
+
+#table-book .book-status {
+  background-color: var(--white-color);
+  border: solid 1px var(--main-p-color);
+}
+
+#table-book .btn-delete {
+  background-color: var(--red-color);
+  color: var(--white-color);
+}
